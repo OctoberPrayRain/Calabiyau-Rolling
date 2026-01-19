@@ -1,0 +1,73 @@
+name: Windows Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '6.5.3'
+          host: 'windows'
+          arch: 'win64_msvc2019_64'
+          # 注意：如果你没用到 multimedia，建议删除下面这行
+          modules: 'qtmultimedia'
+
+      - name: Configure CMake
+        shell: cmd
+        # 移除了硬编码的 call vcvars64.bat，CMake 通常能自动识别
+        # 如果报错找不到编译器，可以添加 uses: ilammy/msvc-dev-cmd@v1 步骤
+        run: |
+          cmake -B build -S . -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=%Qt6_DIR%
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Package with windeployqt
+        shell: cmd
+        run: |
+          cd build
+          
+          echo "Run windeployqt..."
+          
+          :: 重点修正：
+          :: 1. --qmldir ..  告诉工具去上一级目录(源码根目录)扫描 .qml 文件引用
+          :: 2. --plugindir . 确保插件放对位置(可选，通常默认就是当前)
+          
+          windeployqt --release --compiler-runtime --no-translations --qmldir .. .
+          
+          :: 清理垃圾文件，只留 exe 和 dll
+          del *.obj *.iobj *.ipdb *.pdb *.c *.h *.cpp
+          del CMakeCache.txt
+          rd /s /q CMakeFiles
+          
+          cd ..
+
+      - name: Create Zip Archive
+        shell: pwsh
+        run: |
+          # 建议：只压缩必要文件。
+          # 这里为了简单，还是压缩 build 里的所有内容，但上面已经清理了一部分垃圾
+          Compress-Archive -Path build\* -DestinationPath Calabiyau-Rolling.zip
+
+      - name: Upload Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: Calabiyau-Rolling.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
