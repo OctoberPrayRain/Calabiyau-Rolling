@@ -1,0 +1,35 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource prefix="/">
+    <file>images/明.png</file>
+    <file>images/星绘.png</file>
+    <file>images/拉薇.png</file>
+    <file>images/忧雾.png</file>
+    <file>images/梅瑞狄斯.png</file>
+    <file>images/令.png</file>
+    <file>images/奥黛丽.png</file>
+    <file>images/加拉蒂亚.png</file>
+    <file>images/芙拉薇娅.png</file>
+    <file>images/玛拉.png</file>
+    <file>images/千代.png</file>
+    <file>images/信.png</file>
+    <file>images/蕾欧娜.png</file>
+    <file>images/香奈美.png</file>
+    <file>images/玛德蕾娜.png</file>
+    <file>images/绯莎.png</file>
+    <file>images/心夏.png</file>
+    <file>images/珐格兰丝.png</file>
+    <file>images/伊薇特.png</file>
+    <file>images/白墨.png</file>
+    <file>images/米雪儿李.png</file>
+    <file>images/艾卡.png</file>
+    <file>images/maps/88区.png</file>
+    <file>images/maps/空间实验室.png</file>
+    <file>images/maps/风曳镇.png</file>
+    <file>images/maps/柯西街区.png</file>
+    <file>images/maps/404基地.png</file>
+    <file>images/maps/欧拉港口.png</file>
+    <file>images/maps/奥卡努斯.png</file>
+    <file>images/maps/科斯迷特.png</file>
+  </qresource>
+</RCC>
