@@ -18,17 +18,23 @@ jobs:
         with:
           submodules: recursive
 
+      # 1. 修正：安装 Qt 6.8.0，并使用 MSVC 2022 架构
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
-          version: '6.5.3'
+          version: '6.8.0'          # 改为 6.8.0 以匹配你的 CMakeLists.txt
           host: 'windows'
-          arch: 'win64_msvc2019_64'
-    
+          arch: 'win64_msvc2022_64' # Qt 6.8 通常搭配 MSVC 2022
+          modules: 'qtmultimedia'
+
+      # 2. 新增：强制设置 MSVC 环境
+      # 这会自动配置 cl.exe，避免 CMake 错误地去用 MinGW (GNU)
+      - name: Setup MSVC environment
+        uses: ilammy/msvc-dev-cmd@v1
+
+      # 3. 配置 CMake
       - name: Configure CMake
         shell: cmd
-        # 移除了硬编码的 call vcvars64.bat，CMake 通常能自动识别
-        # 如果报错找不到编译器，可以添加 uses: ilammy/msvc-dev-cmd@v1 步骤
         run: |
           cmake -B build -S . -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=%Qt6_DIR%
 
