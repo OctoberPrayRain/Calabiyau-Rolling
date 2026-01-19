@@ -25,7 +25,6 @@ jobs:
           host: 'windows'
           arch: 'win64_msvc2019_64'
     
-
       - name: Configure CMake
         shell: cmd
         # 移除了硬编码的 call vcvars64.bat，CMake 通常能自动识别
