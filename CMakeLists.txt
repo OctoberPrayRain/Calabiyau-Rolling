@@ -52,6 +52,7 @@ qt_add_qml_module(appCalabiyau-Rolling
         images/maps/莱布伦城.png
 )
 
+
 set_target_properties(appCalabiyau-Rolling PROPERTIES
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
