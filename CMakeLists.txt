@@ -40,6 +40,7 @@ qt_add_qml_module(appCalabiyau-Rolling
         images/忧雾.png
         images/蕾欧娜.png
         images/千代.png
+        images/汐.png
         images/maps/88区.png
         images/maps/404基地.png
         images/maps/奥卡努斯.png
@@ -48,6 +49,7 @@ qt_add_qml_module(appCalabiyau-Rolling
         images/maps/科斯迷特.png
         images/maps/空间实验室.png
         images/maps/风曳镇.png
+        images/maps/莱布伦城.png
 )
 
 set_target_properties(appCalabiyau-Rolling PROPERTIES
